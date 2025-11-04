@@ -1,4 +1,9 @@
-import React, { useState, type ChangeEvent, type FormEvent } from 'react';
+import React, {
+  useEffect,
+  useState,
+  type ChangeEvent,
+  type FormEvent,
+} from 'react';
 import { searchCompanies } from '../../api';
 import type { CompanySearch } from '../../company';
 import CardList from '../../Components/CardList/CardList';
@@ -7,7 +12,11 @@ import Navbar from '../../Components/Navbar/Navbar';
 import ListPortfolio from '../../Components/Portfolio/ListPortfolio/ListPortfolio';
 import Search from '../../Components/Search/Search';
 import type { PortfolioGet } from '../../Models/Portfolio';
-import { portfolioGetAPI } from '../../Services/PortfolioService';
+import {
+  portfolioAddAPI,
+  portfolioADeletePI as portfolioADeleteAPI,
+  portfolioGetAPI,
+} from '../../Services/PortfolioService';
 import { toast } from 'react-toastify';
 
 interface Props {}
@@ -24,6 +33,10 @@ const SearchPage = (props: Props) => {
     setSearch(e.target.value);
   };
 
+  useEffect(() => {
+    getPortfolio();
+  }, []);
+
   const getPortfolio = async () => {
     try {
       const response = await portfolioGetAPI();
@@ -38,21 +51,36 @@ const SearchPage = (props: Props) => {
     }
   };
 
-  const onPortfolioCreate = (e: any) => {
-    e.preventDefault();
-    const exists = portfolioValues.find((value) => value === e.target[0].value);
-    if (exists) return;
-    const updatedPortfolio = [...portfolioValues, e.target[0].value];
-    setPortfolioValues(updatedPortfolio);
-    console.log(e);
+  const onPortfolioCreate = async (e: any) => {
+    try {
+      e.preventDefault();
+      const response = await portfolioAddAPI(e.target[0].value);
+
+      if (response?.status === 204) {
+        toast.success('Stock added to portfolio!');
+        getPortfolio();
+      }
+    } catch (error) {
+      if (error instanceof Error) {
+        toast.warning('Could not create portfolio item');
+      }
+    }
   };
 
-  const onPortfolioDelete = (e: any) => {
-    e.preventDefault();
-    const filteredValues = portfolioValues.filter((value) => {
-      return value !== e.target[0].value;
-    });
-    setPortfolioValues(filteredValues);
+  const onPortfolioDelete = async (e: any) => {
+    try {
+      e.preventDefault();
+      const response = await portfolioADeleteAPI(e.target[0].value);
+
+      if (response?.status === 200) {
+        toast.success('Stock deleted from portfolio!');
+        getPortfolio();
+      }
+    } catch (error) {
+      if (error instanceof Error) {
+        toast.warning('Could not delete portfolio item');
+      }
+    }
   };
 
   const onSearchSubmit = async (e: FormEvent<HTMLFormElement>) => {
@@ -73,7 +101,7 @@ const SearchPage = (props: Props) => {
         handleSearchChange={handleSearchChange}
       />
       <ListPortfolio
-        portfolioValues={portfolioValues}
+        portfolioValues={portfolioValues!}
         onPortfolioDelete={onPortfolioDelete}
       />
       <CardList
