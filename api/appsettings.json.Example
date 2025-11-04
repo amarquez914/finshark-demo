@@ -1,0 +1,19 @@
+{
+  "Logging": {
+    "LogLevel": {
+      "Default": "Information",
+      "Microsoft.AspNetCore": "Warning"
+    }
+  },
+  "AllowedHosts": "*",
+  "ConnectionStrings": {
+    "DefaultConnection": "server=localhost;database=finshark;trusted_connection=false;User Id=sa;Password=<YOURPASSWORDHERE>;Persist Security Info=False;Encrypt=False"
+  },
+  "JWT": {
+    "Issuer": "http://localhost:5246",
+    "Audience": "http://localhost:5246",
+    "SigningKey": "<This needs to be at least 512bits long>"
+  },
+  "FMPKey": ""
+  
+}

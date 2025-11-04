@@ -1,0 +1,16 @@
+services:
+  db:
+    image: mcr.microsoft.com/mssql/server:2022-latest
+    container_name: finshark_db
+    environment:
+      ACCEPT_EULA: "Y"
+      MSSQL_SA_PASSWORD: ${DB_PASSWORD}
+    ports:
+      - "1433:1433"
+    volumes:
+      - ./db-init/init.sql:/db/init.sql
+      - ./db-init/entrypoint.sh:/entrypoint.sh
+    entrypoint: ["/bin/bash", "/entrypoint.sh"]
+
+
+# https://stackoverflow.com/a/79576410/16608733
