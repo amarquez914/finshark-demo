@@ -3,7 +3,7 @@
 So things have changed a bit since these answers came out, here's my solution that uses the latest 2022 sql Server image. I also have a few other minor QOL features to this answer
 
 ## docker-compose
-
+```yaml
   my_db_container:
     image: mcr.microsoft.com/mssql/server:2022-latest
     environment:
@@ -17,6 +17,7 @@ So things have changed a bit since these answers came out, here's my solution th
       - ./db-init/init.sql:/db/init.sql
       - ./db-init/entrypoint.sh:/entrypoint.sh
     entrypoint: ["/bin/bash", "/entrypoint.sh"]
+```
 
 First our docker-compose sets up the db image. The networks: - dev_network is to make it easier to reach my db container from my app container. The volumes' are how my container has access to the scripts it needs to create the db. In my docker-compose project I also need to have the two files specified in volumes (under db-init)
 
