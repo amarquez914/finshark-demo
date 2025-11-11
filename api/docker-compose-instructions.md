@@ -57,3 +57,13 @@ echo "Finished running init.sql."
 wait
 
 ```
+
+# Accessing the container's bash shell
+1. Use the docker exec -it command to start an interactive bash shell inside your running container. In the following example, sql1 is name specified by the --name parameter when you created the container alternatively you can use the container id instead.
+```bash
+docker exec -it sql1 "bash"
+```
+2. Once inside the container, connect locally with sqlcmd, using its full path. The -C flag is to ignore unsecure connections. -Q is for running any provided queries.
+```bash
+/opt/mssql-tools18/bin/sqlcmd -S localhost -U <userid> -P "<password>" -C -Q "SELECT 1"
+```
