@@ -1,0 +1,37 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net10.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Folder Include="Comments\Create\" />
+    <Folder Include="Comments\Delete\" />
+    <Folder Include="Comments\GetById\" />
+    <Folder Include="Comments\Get\" />
+    <Folder Include="Comments\Update\" />
+    <Folder Include="Portfolios\Create\" />
+    <Folder Include="Portfolios\Delete\" />
+    <Folder Include="Portfolios\GetById\" />
+    <Folder Include="Portfolios\Get\" />
+    <Folder Include="Portfolios\Update\" />
+    <Folder Include="Stocks\Update\" />
+    <Folder Include="Users\GetById\" />
+    <Folder Include="Users\GetByEmail\" />
+    <Folder Include="Users\Update\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.EntityFrameworkCore" Version="10.0.3" />
+    <PackageReference Include="Microsoft.Extensions.Configuration.Abstractions" Version="10.0.0" />
+    <PackageReference Include="Scrutor" Version="7.0.0" />
+    <PackageReference Include="Serilog" Version="4.3.1" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Domain\Domain.csproj" />
+  </ItemGroup>
+
+</Project>

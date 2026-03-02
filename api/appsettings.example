@@ -1,0 +1,20 @@
+{
+  "Logging": {
+    "LogLevel": {
+      "Default": "Information",
+      "Microsoft.AspNetCore": "Warning"
+    }
+  },
+  "AllowedHosts": "*",
+  "ConnectionStrings": {
+    "SqlServer": "server=localhost;database=stocksapi;trusted_connection=false;User Id=sa;Password=<YOURPASSWORDHERE>;Persist Security Info=False;Encrypt=False",
+    "Postgres": "Host=127.0.0.1;Port=5432;Database=stocksapi;Username=systemadmin;Password=<YOURPASSWORDHERE>;Include Error Detail=true"
+  },
+  "JWT": {
+    "Issuer": "http://localhost:5246",
+    "Audience": "http://localhost:5246",
+    "Secret": "Can use <openssl rand 256 | base64> to generate the secret if needed"
+  },
+  "FMPKey": ""
+}
+

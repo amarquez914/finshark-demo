@@ -1,13 +1,13 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using api.Data;
 using api.Dtos.Comment;
 using api.Helpers;
 using api.Interfaces;
 using api.Models;
 using Microsoft.EntityFrameworkCore;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
 
 namespace api.Repository
 {
@@ -46,12 +46,8 @@ namespace api.Repository
             {
                 comments = comments.Where(s => s.Stock.Symbol.Contains(query.Symbol));
             }
-            ;
 
-            if (query.isDescending)
-            {
-                comments = comments.OrderByDescending(c => c.CreatedOn);
-            }
+            comments = comments.ApplySortingDesc(query.isDescending);
 
             return await comments.ToListAsync();
         }
