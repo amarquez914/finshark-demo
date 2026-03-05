@@ -18,18 +18,15 @@ internal sealed class LoginUserCommandHandler(
 {
     public async Task<Result<string>> Handle(LoginUserCommand command, CancellationToken cancellationToken)
     {
-        User? user = await context.Users.SingleOrDefaultAsync(u => u.Email == command.Email);
+        User? user = await context.Users.SingleOrDefaultAsync(u => u.UserName == command.UserName);
 
         if (user is null)
-        {
-            return Result.Failure<string>(UserErrors.NotFoundByEmail);
-        }
+            return Result.Failure<string>(UserErrors.NotFoundByUserName);
+
         var verified = passwordHasher.Verify(command.Password, user.PasswordHash);
 
         if (!verified)
-        {
             return Result.Failure<string>(UserErrors.IncorrectPassword);
-        }
 
         string token = tokenProvider.Create(user);
 

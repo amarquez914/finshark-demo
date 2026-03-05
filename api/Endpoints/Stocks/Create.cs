@@ -21,7 +21,7 @@ internal sealed class Create : IEndpoint
 
     public void MapEndpoint(IEndpointRouteBuilder app)
     {
-        app.MapPost("stocks", async (
+        app.MapPost("stock", async (
             CreateRequest request,
             ICommandHandler<CreateStockCommand, int> handler,
             CancellationToken cancellationToken) =>

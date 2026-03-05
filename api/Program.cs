@@ -21,7 +21,9 @@ builder.Services.AddEndpoints(Assembly.GetExecutingAssembly());
 
 var app = builder.Build();
 
-app.MapEndpoints();
+var group = app.MapGroup("/api");
+
+app.MapEndpoints(group);
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())

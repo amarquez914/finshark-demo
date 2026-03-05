@@ -10,15 +10,15 @@ namespace StocksApi.Endpoints.Users;
 
 internal sealed class Login : IEndpoint
 {
-    public sealed record LoginRequest(string Email, string Password);
+    public sealed record LoginRequest(string UserName, string Password);
     public void MapEndpoint(IEndpointRouteBuilder app)
     {
-        app.MapPost("users/login", async (
+        app.MapPost("account/login", async (
             LoginRequest request,
             ICommandHandler<LoginUserCommand, string> handler,
             CancellationToken cancellationToken) =>
         {
-            var command = new LoginUserCommand(request.Email, request.Password);
+            var command = new LoginUserCommand(request.UserName, request.Password);
 
             Result<string> result = await handler.Handle(command, cancellationToken);
 

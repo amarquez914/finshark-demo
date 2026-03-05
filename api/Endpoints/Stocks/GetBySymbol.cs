@@ -11,7 +11,7 @@ internal sealed class GetBySymbol : IEndpoint
 {
     public void MapEndpoint(IEndpointRouteBuilder app)
     {
-        app.MapGet("stocks/{symbol:alpha}", async (
+        app.MapGet("stock/{symbol:alpha}", async (
             string symbol,
             IQueryHandler<GetStockBySymbolQuery, StockResponse> handler,
             CancellationToken cancellationToken) =>

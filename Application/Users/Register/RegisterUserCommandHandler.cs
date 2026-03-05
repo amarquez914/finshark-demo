@@ -25,6 +25,7 @@ internal sealed class RegisterUserCommandHandler(
         var user = new User
         {
             Id = Guid.NewGuid(),
+            UserName = command.UserName,
             Email = command.Email,
             FirstName = command.FirstName,
             LastName = command.LastName,
