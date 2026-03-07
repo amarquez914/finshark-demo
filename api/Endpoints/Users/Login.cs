@@ -15,12 +15,12 @@ internal sealed class Login : IEndpoint
     {
         app.MapPost("account/login", async (
             LoginRequest request,
-            ICommandHandler<LoginUserCommand, string> handler,
+            ICommandHandler<LoginUserCommand, LoginResponse> handler,
             CancellationToken cancellationToken) =>
         {
             var command = new LoginUserCommand(request.UserName, request.Password);
 
-            Result<string> result = await handler.Handle(command, cancellationToken);
+            Result<LoginResponse> result = await handler.Handle(command, cancellationToken);
 
             return result.Match(Results.Ok, CustomResults.Problem);
         })

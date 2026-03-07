@@ -9,11 +9,6 @@
   <ItemGroup>
     <Folder Include="Comments\Delete\" />
     <Folder Include="Comments\GetById\" />
-    <Folder Include="Portfolios\Create\" />
-    <Folder Include="Portfolios\Delete\" />
-    <Folder Include="Portfolios\GetById\" />
-    <Folder Include="Portfolios\Get\" />
-    <Folder Include="Portfolios\Update\" />
     <Folder Include="Stocks\Update\" />
   </ItemGroup>
 

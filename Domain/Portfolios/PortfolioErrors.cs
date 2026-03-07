@@ -7,9 +7,9 @@ namespace Domain.Portfolios;
 
 public static class PortfolioErrors
 {
-    public static Error NotFound(Guid UserId, int StockId) => Error.NotFound(
+    public static Error NotFound(Guid UserId) => Error.NotFound(
         "Portfolio.NotFound",
-        $"The Portfolio for user Id = '{UserId}' and stock id = '{StockId}' was not found");
+        $"The Portfolios for user Id = '{UserId}' were not found");
 
     public static Error Unauthorized() => Error.Failure(
         "Portfolio.Unauthorized",

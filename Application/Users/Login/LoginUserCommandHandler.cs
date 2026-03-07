@@ -14,22 +14,22 @@ internal sealed class LoginUserCommandHandler(
     IApplicationDbContext context,
     ITokenProvider tokenProvider,
     IPasswordHasher passwordHasher)
-    : ICommandHandler<LoginUserCommand, string>
+    : ICommandHandler<LoginUserCommand, LoginResponse>
 {
-    public async Task<Result<string>> Handle(LoginUserCommand command, CancellationToken cancellationToken)
+    public async Task<Result<LoginResponse>> Handle(LoginUserCommand command, CancellationToken cancellationToken)
     {
         User? user = await context.Users.SingleOrDefaultAsync(u => u.UserName == command.UserName);
 
         if (user is null)
-            return Result.Failure<string>(UserErrors.NotFoundByUserName);
+            return Result.Failure<LoginResponse>(UserErrors.NotFoundByUserName);
 
         var verified = passwordHasher.Verify(command.Password, user.PasswordHash);
 
         if (!verified)
-            return Result.Failure<string>(UserErrors.IncorrectPassword);
+            return Result.Failure<LoginResponse>(UserErrors.IncorrectPassword);
 
         string token = tokenProvider.Create(user);
 
-        return token;
+        return new LoginResponse(user.UserName, user.Email, token);
     }
 }
